@@ -26,7 +26,7 @@ void statusloop();
 void termhandler(int signum);
 
 
-#include "blocks.h"
+#include "config.h"
 
 static Display *dpy;
 static int screen;
@@ -58,7 +58,7 @@ void getcmds(int time)
 {
 	const Block* current;
 	for(int i = 0; i < LENGTH(blocks); i++)
-	{	
+	{
 		current = blocks + i;
 		if ((current->interval != 0 && time % current->interval == 0) || time == -1)
 			getcmd(current,statusbar[i]);
@@ -80,7 +80,7 @@ void getsigcmds(int signal)
 void setupsignals()
 {
 	for(int i = 0; i < LENGTH(blocks); i++)
-	{	  
+	{
 		if (blocks[i].signal > 0)
 			signal(SIGRTMIN+blocks[i].signal, sighandler);
 	}
@@ -154,7 +154,7 @@ void termhandler(int signum)
 int main(int argc, char** argv)
 {
 	for(int i = 0; i < argc; i++)
-	{	
+	{
 		if (!strcmp("-d",argv[i]))
 			delim = argv[++i][0];
 		else if(!strcmp("-p",argv[i]))
