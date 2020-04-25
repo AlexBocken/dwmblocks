@@ -13,7 +13,9 @@ typedef struct {
 	unsigned int interval;
 	unsigned int signal;
 } Block;
+void dummysighandler(int num);
 void sighandler(int num);
+void replace(char *str, char old, char new);
 void getcmds(int time);
 #ifndef __OpenBSD__
 void getsigcmds(int signal);
@@ -35,6 +37,14 @@ static char statusbar[LENGTH(blocks)][CMDLENGTH] = {0};
 static char statusstr[2][256];
 static int statusContinue = 1;
 static void (*writestatus) () = setroot;
+
+void replace(char *str, char old, char new)
+{
+	int N = strlen(str);
+	for(int i = 0; i < N; i++)
+		if(str[i] == old)
+			str[i] = new;
+}
 
 //opens process *cmd and stores output in *output
 void getcmd(const Block *block, char *output)
@@ -79,6 +89,10 @@ void getsigcmds(int signal)
 
 void setupsignals()
 {
+    /* initialize all real time signals with dummy handler */
+    for(int i = SIGRTMIN; i <= SIGRTMAX; i++)
+        signal(i, dummysighandler);
+
 	for(int i = 0; i < LENGTH(blocks); i++)
 	{
 		if (blocks[i].signal > 0)
@@ -136,6 +150,14 @@ void statusloop()
 		i++;
 	}
 }
+
+#ifndef __OpenBSD__
+/* this signal handler should do nothing */
+void dummysighandler(int signum)
+{
+    return;
+}
+#endif
 
 #ifndef __OpenBSD__
 void sighandler(int signum)
