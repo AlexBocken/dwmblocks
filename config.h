@@ -2,6 +2,7 @@
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
 	{"", "music", 3600, 11},
+	{"", "cat /tmp/mucc_time", 100, 3},
 	{"", "getpomminutesft", 100, 3},
 	{"", "getpomminutes", 100, 3},
 /*	{"", "weather", 3600, 5},*/
