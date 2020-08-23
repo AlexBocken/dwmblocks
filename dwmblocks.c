@@ -5,10 +5,9 @@
 #include<signal.h>
 #include<X11/Xlib.h>
 #define LENGTH(X)               (sizeof(X) / sizeof (X[0]))
-#define CMDLENGTH		50
+#define CMDLENGTH		100
 
 typedef struct {
-	char* icon;
 	char* command;
 	unsigned int interval;
 	unsigned int signal;
@@ -34,7 +33,7 @@ static Display *dpy;
 static int screen;
 static Window root;
 static char statusbar[LENGTH(blocks)][CMDLENGTH] = {0};
-static char statusstr[2][256];
+static char statusstr[2][512];
 static int statusContinue = 1;
 static void (*writestatus) () = setroot;
 
@@ -49,15 +48,13 @@ void replace(char *str, char old, char new)
 //opens process *cmd and stores output in *output
 void getcmd(const Block *block, char *output)
 {
-	strcpy(output, block->icon);
 	char *cmd = block->command;
 	FILE *cmdf = popen(cmd,"r");
 	if (!cmdf)
 		return;
 	char c;
-	int i = strlen(block->icon);
-	fgets(output+i, CMDLENGTH-i, cmdf);
-	i = strlen(output);
+	fgets(output, CMDLENGTH, cmdf);
+	int i = strlen(output);
 	if (delim != '\0' && --i)
 		output[i++] = delim;
 	output[i++] = '\0';
