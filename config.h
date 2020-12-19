@@ -4,12 +4,14 @@
 static const Block blocks[] = {
 	/*Command*/		/*Update Interval*/	/*Update Signal*/
 	{"music", 		60, 			11},
-	{"cat /tmp/mucc_time 2> /dev/null", 100, 	3 },
+	{"cat /tmp/mucc_time 2> /dev/null || echo ''", 100, 	3 },
+	{"appointments",	10, 			8},
 	{"dunststatus", 	10,		 	5 },
 	{"getpomminutesft", 	100, 			3 },
 	{"getpomminutes", 	100,			3 },
 /*	{"weather", 		3600, 			5 },*/
-	{"pacpackages", 	1000, 			6 },
+	{"pacpackages", 	0, 			6 },
+	{"memory", 		2, 			0 },
 	{"cpu", 		2, 			0 },
 	{"nettraf", 		5, 			0 },
 	{"torrent", 		6, 			0 },
