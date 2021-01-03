@@ -3,7 +3,7 @@
 //Otherwise the last nonzero value will be used instead. This is intended behaviour as it prevents flickering
 static const Block blocks[] = {
 	/*Command*/		/*Update Interval*/	/*Update Signal*/
-	{"music", 		60, 			11},
+	{"music", 		0, 			11},
 	{"cat /tmp/mucc_time 2> /dev/null || echo ''", 100, 	3 },
 	{"appointments",	10, 			8},
 	{"dunststatus", 	10,		 	5 },
@@ -14,7 +14,7 @@ static const Block blocks[] = {
 	{"memory", 		2, 			0 },
 	{"cpu", 		2, 			0 },
 	{"nettraf", 		5, 			0 },
-	{"torrent", 		6, 			0 },
+	{"torrent", 		6, 			12 },
 	{"getmail", 		20, 			13},
 	{"news", 		600, 			13},
 /*	{"getbright", 		4, 			2 },*/
